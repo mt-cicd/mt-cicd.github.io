@@ -1,0 +1,2464 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mt-cicd.github.io/docker/docker/">
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../docker-compose/">
+      
+      
+      <link rel="icon" href="../../assets/logo/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Docker - CI/CD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CI/CD" class="md-header__button md-logo" aria-label="CI/CD" data-md-component="logo">
+      
+  <img src="../../assets/logo/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CI/CD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  Docker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../jenkins/jenkins-guide/" class="md-tabs__link">
+          
+  
+  
+  Jenkins
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CI/CD" class="md-nav__button md-logo" aria-label="CI/CD" data-md-component="logo">
+      
+  <img src="../../assets/logo/logo.png" alt="logo">
+
+    </a>
+    CI/CD
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clarifying-docker-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clarifying Docker terms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginx-engine-x-web-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      nginx (Engine X) web server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#portainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Portainer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jenkins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jenkins
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Hub
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Networking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-the-first-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloading the first Docker image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-first-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the first Docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-docker-containers-or-sudo-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting Docker containers or sudo service
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certbot-in-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      certbot in linux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-common-issue-solved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Common Issue Solved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-presentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Presentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Presentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-images_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-volume_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-port-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Port Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-vs-docker-compose-vs-docker-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker vs Docker Compose vs Docker Swarm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Swarm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-guide-jenkins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Guide Jenkins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Compose
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../react-dockerize-locally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    React Dockerize Locally
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Jenkins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Jenkins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jenkins/jenkins-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Jenkins Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../jenkins/pocket-devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pocket Devops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clarifying-docker-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clarifying Docker terms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginx-engine-x-web-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      nginx (Engine X) web server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#portainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Portainer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jenkins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jenkins
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Hub
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Networking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-the-first-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloading the first Docker image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-first-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the first Docker container
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-docker-containers-or-sudo-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting Docker containers or sudo service
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certbot-in-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      certbot in linux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-common-issue-solved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Common Issue Solved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-presentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Presentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Presentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-images_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-volume_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Volume
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-port-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Port Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-vs-docker-compose-vs-docker-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker vs Docker Compose vs Docker Swarm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Swarm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-guide-jenkins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Guide Jenkins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Docker</h1>
+
+<div><h2 id="installation">Installation</h2>
+<p>The <mark>core of Docker</mark> is made of the Docker engine, a single-host software daemon that allows you to create and manage containers. Before diving into using Docker, you need to install the Docker engine on a host, either your desktop, laptop, or a server.</p>
+<p>A <code>Dockerfile</code> is a manifest that describes how to build a container image. This is a core concept in Docker.</p>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Dockerfile</label><label for="__tabbed_1_2">Theory</label><label for="__tabbed_1_3">Practical</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># Use an existing image as a base
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>FROM alpine:latest
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a># Run a command in the container
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>CMD ["echo", "Hello, Jenkins!"]
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><strong><code>Docker</code></strong>, <strong><code>Docker Compose</code></strong>, and <strong><code>Docker Swarm</code></strong> are all related tools in the Docker ecosystem, but they serve different purposes:</p>
+<ol>
+<li>
+<p><strong>Docker:</strong></p>
+<p>Docker is a platform and tool for building, distributing, and running <code>containers</code>. Containers allow developers to package an application with all of its dependencies into a standardized unit for software development. Docker provides the tools needed to create and manage these containers efficiently. With Docker, you can build container images, run containers from those images, and manage container lifecycles.</p>
+</li>
+<li>
+<p><strong>Docker Compose:</strong></p>
+<p>Docker Compose is a tool for defining and running <code>multi-container</code> Docker applications. It allows you to use a YAML file to configure the services that make up your application, including their dependencies, networking, and volumes. Docker Compose then takes care of starting, stopping, and managing all of these containers as a single application stack. It simplifies the process of managing complex applications composed of multiple interconnected containers.</p>
+</li>
+<li>
+<p><strong>Docker Swarm:</strong></p>
+<p>Docker Swarm is Docker's native clustering and <code>orchestration tool</code>. It allows you to create and manage a cluster of Docker nodes, turning them into a single virtual Docker engine. Docker Swarm enables you to deploy and manage multi-container applications across multiple hosts, providing features such as service scaling, rolling updates, and high availability. It simplifies the management of containerized applications at scale and provides built-in features for load balancing and service discovery.</p>
+</li>
+</ol>
+<p>In summary:</p>
+<ul>
+<li><code>Docker</code>: The core platform for building, distributing, and running containers.</li>
+<li><code>Docker Compose</code>: A tool for defining and managing multi-container applications using a YAML configuration file.</li>
+<li><code>Docker Swarm</code>: Docker's native clustering and orchestration tool for managing multi-container applications across multiple hosts.</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>&lt;docker.deb&gt;
+</span></code></pre></div>
+<blockquote>
+<p>Commands</p>
+</blockquote>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># List containers:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$<span class="w"> </span>docker<span class="w"> </span>containers<span class="w"> </span>ls
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># List only running container: (ps-process status)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># List images:</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>$<span class="w"> </span>docker<span class="w"> </span>images
+</span></code></pre></div>
+<blockquote>
+<p>Restart Docker</p>
+</blockquote>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># To restart a Docker container based on an image</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># 1.Identify the Container:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>$<span class="w"> </span>docker<span class="w"> </span>ps
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># 2. Restart the Container:</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>$<span class="w"> </span>docker<span class="w"> </span>restart<span class="w"> </span>&lt;container_id_or_name&gt;
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># 3. Verify Restart:</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>$<span class="w"> </span>docker<span class="w"> </span>ps
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="clarifying-docker-terms">Clarifying Docker terms</h2>
+<details class="abstract">
+<summary>Abstract</summary>
+<blockquote>
+<p>Docker Registry</p>
+</blockquote>
+<p>A Docker Registry is a place where Docker images can be stored in order to be publicly or privately found, accessed, and used by software developers worldwide for quickly crafting fresh and composite applications without any risks. Because all the stored images will have gone through multiple validations, verifications, and refinements, the quality of those images is really high. You can dispatch your Docker image to the registry so that it is registered and deposited using the <code>docker push</code> <mark>subcommand</mark>. You can download Docker images from the registry using the <code>docker pull</code> <mark>subcommand</mark>.</p>
+<p>Docker Registry could be hosted by a third party as a public or private registry, like one of the following registries:</p>
+<ul>
+<li>Docker Hub</li>
+<li>Quay</li>
+<li>Google Container Registry</li>
+<li>AWS Container Registry</li>
+</ul>
+<p>Every institution, innovator, and individual can have their own Docker Registry to stock up their images for internal and/or external access and usage.</p>
+<hr>
+<ul>
+<li><a href="#">Learning Docker Second Edition by Jeeva S. Chelladhurai, pg:31</a></li>
+</ul>
+</details>
+<hr>
+<h2 id="nginx-engine-x-web-server">nginx (Engine X) <code>web server</code></h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Theory</label><label for="__tabbed_2_2">Practical</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nginx
+</span></code></pre></div>
+<p><code>/etc/nginx/nginx.conf</code></p>
+<p>The server_name directive in Nginx should specify only the domain name or names without the protocol (e.g., <code>http://</code>). Therefore, you need to modify your configuration like this:</p>
+<div class="language-nginx highlight"><span class="filename">nginx</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">http</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">9000</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="s">generic-info.ispl.com.np</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="c1"># Jenkins running on port 9000</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://10.114.0.175:9000</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">8080</span><span class="p">;</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="s">generic-info.ispl.com.np</span><span class="p">;</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">        </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">            </span><span class="c1"># Portainer running on port 8080</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">            </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://10.114.0.175:8080</span><span class="p">;</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>After making this change, you should test the configuration to ensure there are no syntax errors:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+</span></code></pre></div>
+<p>If the test is successful, reload Nginx to apply the changes:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>nginx
+</span></code></pre></div>
+<p>This should resolve the issue, and Nginx should be able to start without errors.</p>
+<details>
+<summary>Using Paths to Differentiate Services</summary>
+<p>If Hostnames Are Not Available</p>
+<p>If you cannot use different hostnames, you will <mark>need to use different ports</mark> or <mark>subpaths</mark> as described in previous responses.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>http {
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    server {
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        listen 80;
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        # No server_name specified
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        location /jenkins/ {
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>            # Jenkins running on port 9000
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>            proxy_pass http://10.114.0.175:9000/;
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>            proxy_set_header Host $host;
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>            rewrite ^/jenkins(.*) $1 break;
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>        }
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        location /portainer/ {
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>            # Portainer running on port 8080
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>            proxy_pass http://10.114.0.175:8080/;
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>            proxy_set_header Host $host;
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>            rewrite ^/portainer(.*) $1 break;
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>        }
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>    }
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>}
+</span></code></pre></div>
+<blockquote>
+<p>Explanation</p>
+</blockquote>
+<ul>
+<li>Single Server Block: Only one server block is needed, listening on port 80.</li>
+<li>Path-Based Routing: Requests to /jenkins are routed to Jenkins running on port 9000, and requests to /portainer are routed to Portainer running on port 8080.</li>
+<li>Rewrite Directive: The rewrite directive ensures that the backend service receives the correct path.</li>
+</ul>
+<blockquote>
+<p>Access URLs</p>
+</blockquote>
+<ul>
+<li>Jenkins: <code>http://&lt;your-server-ip&gt;/jenkins</code></li>
+<li>Portainer: <code>http://&lt;your-server-ip&gt;/portainer</code></li>
+</ul>
+</details>
+<details>
+<summary>same port</summary>
+<p>To serve both Jenkins and Portainer on the same port (port 80) without using subpaths like /jenkins and /portainer, you need to use different hostnames. Each service will be accessible via a different domain or subdomain. This approach requires DNS configuration to resolve different hostnames to your server's IP address.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>http {
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    server {
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        listen 80;
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        server_name jenkins.example.com;
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        location / {
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            # Jenkins running on port 9000
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            proxy_pass http://10.114.0.175:9000;
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            proxy_set_header Host $host;
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        }
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    }
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    server {
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        listen 80;
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        server_name portainer.example.com;
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>        location / {
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>            # Portainer running on port 8080
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>            proxy_pass http://10.114.0.175:8080;
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>            proxy_set_header Host $host;
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>        }
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>    }
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>}
+</span></code></pre></div>
+</details>
+<details>
+<summary>Different Port</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>http {
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    server {
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        listen 80;
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        # No server_name specified
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        location / {
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            # Jenkins running on port 9000
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            proxy_pass http://10.114.0.175:9000;
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>            proxy_set_header Host $host;
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        }
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    }
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    server {
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        listen 81;
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        # No server_name specified
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>        location / {
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>            # Portainer running on port 8080
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>            proxy_pass http://10.114.0.175:8080;
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>            proxy_set_header Host $host;
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>            proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>            proxy_set_header X-Forwarded-Proto $scheme;
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        }
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>    }
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>}
+</span></code></pre></div>
+</details>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="docker-images">Docker Images</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Theory</label><label for="__tabbed_3_2">Practical</label><label for="__tabbed_3_3">Dangling images</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># List Docker images</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>docker<span class="w"> </span>images
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Remove Docker image by ID</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>$<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>&lt;image_id&gt;
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Remove Docker image by repository and tag</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>$<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>&lt;repository_name&gt;:&lt;tag&gt;
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Forcefully remove images</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>$<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>-f<span class="w"> </span>&lt;image_id&gt;
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1"># or</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>$<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span>--force<span class="w"> </span>&lt;image_id&gt;
+</span></code></pre></div>
+<blockquote>
+<p>Create Docker Image</p>
+</blockquote>
+<p>When working with Docker, you typically create an image first and then use that image to create containers.</p>
+<ol>
+<li>
+<p><strong>Create <mark>Image</mark></strong>:</p>
+<p>An image is like a template that contains the filesystem and configuration needed to run a container. You define an image using a <code>Dockerfile</code>, which specifies the instructions to build the image. You use the docker build command to create an image from a Dockerfile.</p>
+</li>
+<li>
+<p><strong>Create <mark>Container</mark></strong>:</p>
+<p>Once you have an image, you can create one or more containers from it. A container is a running instance of an image. You use the docker run command to create and start a container from an image. Each container runs in isolation from other containers but can communicate with them if configured to do so.</p>
+</li>
+</ol>
+<p>Here's a basic sequence of commands:</p>
+<ol>
+<li>Create the image:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-image<span class="w"> </span>.
+</span></code></pre></div>
+<ol>
+<li>Run a container based on that image:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>my-container<span class="w"> </span>my-image
+</span></code></pre></div>
+<p>So, to summarize, first, you build an image using a <code>Dockerfile</code>, then you create and run containers based on that image.</p>
+</div>
+<div class="tabbed-block">
+<p>Dangling images are layers that have no relationship to any tagged images. They no longer serve a purpose and consume disk space.</p>
+<p>Dangling images are created while creating new build of a image without renaming/updating the version of the image. So that the old image are converted into dangling images.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># List Dangling images</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>$<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>-f<span class="w"> </span><span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Remove Dangling images</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>$<span class="w"> </span>docker<span class="w"> </span>rmi<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>images<span class="w"> </span>-f<span class="w"> </span><span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>-q<span class="k">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1">##</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># To remove all dangling images.</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>$<span class="w"> </span>docker<span class="w"> </span>image<span class="w"> </span>prune
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># To remove all images which aren't used by existing containers, use the -a flag:</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>$<span class="w"> </span>docker<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>-a
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># To remove all stopped containers.</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>$<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>prune
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="c1"># To removes stopped containers older than 24 hours:</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>$<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>prune<span class="w"> </span>--filter<span class="w"> </span><span class="s2">"until=24h"</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="c1"># To remove all volumes not used by at least one container.</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>$<span class="w"> </span>docker<span class="w"> </span>volume<span class="w"> </span>prune
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="c1"># To remove all networks not used by at least one container.</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>$<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>prune
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="c1"># The docker system prune command is a shortcut that prunes images, containers, and networks.</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="c1"># Volumes aren't pruned by default, and you must specify the --volumes flag for docker system prune to prune volumes.</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="c1"># To prune images, containers and network</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>$<span class="w"> </span>docker<span class="w"> </span>system<span class="w"> </span>prune
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="c1"># To also prune volumes, add the --volumes flag:</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>$<span class="w"> </span>docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>--volumes
+</span></code></pre></div>
+<ul>
+<li><a href="https://waytoeasylearn.com/learn/docker-image-layers/">Remove unnecessary images</a></li>
+<li><a href="https://docs.docker.com/config/pruning/">Docker container and image prune</a></li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="docker-container">Docker Container</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><input id="__tabbed_4_3" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Theory</label><label for="__tabbed_4_2">Practical</label><label for="__tabbed_4_3">Additional</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<blockquote>
+<p>Create Docker Container</p>
+</blockquote>
+<p>example of creating a new container:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># syntax</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># 1. Run a new container with the new image:</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>&lt;container_name&gt;<span class="w"> </span>-d<span class="w"> </span>&lt;new_image_name&gt;
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># 2. Stop the existing container:</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>$<span class="w"> </span>docker<span class="w"> </span>stop<span class="w"> </span>&lt;container_name_or_id&gt;
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1"># 3. Remove the existing container (optional):</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>$<span class="w"> </span>docker<span class="w"> </span>rm<span class="w"> </span>&lt;container_name_or_id&gt;
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="c1"># example</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>my-container<span class="w"> </span>-d<span class="w"> </span>my-image
+</span></code></pre></div>
+<ul>
+<li><code>--name my-container</code> sets the name of the container to my-container.</li>
+<li><code>-d</code> runs the container in detached mode (in the background).</li>
+<li><code>my-image</code> is the name of the image from which to create the container.</li>
+</ul>
+<p>This command will create a new container using the specified image. If the image is not available locally, Docker will automatically pull it from a registry like Docker Hub before creating the container.</p>
+<p>After running the command, you can use <code>docker ps</code> to see the list of running containers.</p>
+</div>
+<div class="tabbed-block">
+<p>Check the IP Address of the Docker Container</p>
+<div class="language-sh highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'</span><span class="w"> </span>&lt;container-name&gt;
+</span></code></pre></div>
+<p>Then try accessing the site using <code>curl</code> with the <code>IP address</code> and the <code>mapped port</code> (<code>8082</code> in this case).</p>
+<hr>
+<p>if you want to check if a container named my_container is using any volumes:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>inspect<span class="w"> </span>&lt;my_container&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Mounts
+</span></code></pre></div>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>-p<span class="w"> </span><span class="m">50000</span>:50000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>--name<span class="w"> </span>jenkins<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>-v<span class="w"> </span>generic-volume:/var/jenkins_home/generic-volume<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>jenkins/jenkins:lts
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>-p<span class="w"> </span><span class="m">50000</span>:50000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>--name<span class="w"> </span>jenkins<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>-v<span class="w"> </span>generic-volume:/var/jenkins_home/generic-volume<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>my-jenkins
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="docker-volume">Docker Volume</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><input id="__tabbed_5_2" name="__tabbed_5" type="radio"><input id="__tabbed_5_3" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">Theory</label><label for="__tabbed_5_2">Practical</label><label for="__tabbed_5_3">Additional</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># List Volumes in Use:</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$<span class="w"> </span>docker<span class="w"> </span>volume<span class="w"> </span>ls
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># list all containers to find out which volumes are in use:</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># delete the volumes</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>$<span class="w"> </span>docker<span class="w"> </span>volume<span class="w"> </span>rm<span class="w"> </span>&lt;volume_name_or_id&gt;
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="c1"># delete volumes along with the containers that use them</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>$<span class="w"> </span>docker<span class="w"> </span>rm<span class="w"> </span>-v<span class="w"> </span>&lt;container_name_or_id&gt;
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Recap Docker Volume</p>
+<p>In a previous chapter, we used the "<code>-v</code>" option to a "<code>docker run</code>" command to declare that we wanted to use a volume with a container. The abbreviated "<code>-v</code>" option is exactly the same as the "<code>--volume</code>" option. However, the newer and preferred way to mount volumes in a container is the "<code>--mount</code>" option. Docker recommends that you use "<code>--mount</code>" instead of "<code>-v</code>" or "<code>--volume</code>", as their research has shown "<code>--mount</code>" is easier to use. However, if you are an old Docker user like myself, then you're probably accustomed to using and seeing "<code>-v</code>". In any case, either works, but we will focus on "<code>--mount</code>", as it’s the recommended way.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>withvolume<span class="w"> </span>--mount<span class="w"> </span><span class="nv">source</span><span class="o">=</span>mydata1,destination<span class="o">=</span>/root/volume<span class="w"> </span>nginx
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1">#</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>withvolume2<span class="w"> </span>--mount<span class="w"> </span><span class="nv">src</span><span class="o">=</span>mydata1,dst<span class="o">=</span>/root/volume<span class="w"> </span>nginx
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-dit<span class="w"> </span>--name<span class="w"> </span>ephemeral<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>tmpfs,destination<span class="o">=</span>/root/volume<span class="w"> </span>nginx
+</span></code></pre></div>
+<ul>
+<li><a href="">Docker: A project based learning</a></li>
+<li><a href="https://devops4solutions.com/publish-docker-image-to-dockerhub-using-jenkins-pipeline/">Publish Docker image to Dockerhub using Jenkins Pipeline</a></li>
+<li><a href="https://k-adithya21.medium.com/build-a-docker-jenkins-pipeline-to-implement-ci-cd-workflow-e4918bb8bca3">Build a Docker Jenkins Pipeline to Implement CI/CD Workflow</a></li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="portainer">Portainer</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:3"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><input id="__tabbed_6_2" name="__tabbed_6" type="radio"><input id="__tabbed_6_3" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">Theory</label><label for="__tabbed_6_2">Practical</label><label for="__tabbed_6_3">Additional</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Docker pull Command</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>portainer/portainer-ce
+</span></code></pre></div>
+<p>After installing Portainer in Docker on a Linux server, you can run it by executing the Docker run command with appropriate options. Here's how you can do it:</p>
+<ol>
+<li>
+<p>Open a Terminal:</p>
+<p>Log in to your Linux server via SSH or open a terminal window if you're working directly on the server.</p>
+</li>
+<li>
+<p>Run Portainer Container:</p>
+<p>Use the following command to start the Portainer container:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span>--name<span class="w"> </span>portainer<span class="w"> </span>--restart<span class="w"> </span>always<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span>portainer/portainer-ce
+</span></code></pre></div>
+<p>Explanation of options:</p>
+<ul>
+<li>
+<p><code>-d</code>:
+Run the container in detached mode (in the background).</p>
+</li>
+<li>
+<p><code>-p 9000:9000</code>:
+Map port 9000 on the host to port 9000 inside the container. This allows you to access Portainer's web interface on port 9000 of your server.</p>
+</li>
+<li>
+<p><code>--name portainer</code>:
+Assign the name "portainer" to the container.</p>
+</li>
+<li>
+<p><code>--restart always</code>:
+Ensure that the container restarts automatically if it stops.</p>
+</li>
+<li>
+<p><code>-v /var/run/docker.sock:/var/run/docker.sock</code>:
+Mount the Docker socket inside the container, allowing Portainer to communicate with the Docker daemon.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Verify Portainer Container:</p>
+<p>You can verify that the Portainer container is running by executing the following command:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>ps
+</span></code></pre></div>
+<p>This command will list all running containers, and you should see an entry for the Portainer container.</p>
+</li>
+<li>
+<p>Access Portainer Web Interface:</p>
+<p>Once the Portainer container is running, you can access its web interface by opening a web browser and navigating to:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>http://your_server_ip:9000
+</span></code></pre></div>
+<p>Replace <code>your_server_ip</code> with the <code>IP address</code> or <code>domain name</code> of your Linux server.</p>
+</li>
+<li>
+<p>Set up Portainer:</p>
+<p>When you access the Portainer web interface for the first time, you'll be prompted to set up an admin user and password. Follow the on-screen instructions to complete the setup process.</p>
+</li>
+</ol>
+<p>That's it! You have now successfully run Portainer in Docker on your Linux server, and you can start managing your Docker environment through the Portainer web interface.</p>
+</div>
+<div class="tabbed-block">
+<p>Portainer with Docker</p>
+<p>To use Docker Swarm mode with Portainer, you need to set up a Docker Swarm cluster and then deploy Portainer as a service within the Swarm. Here's a step-by-step guide on how to do this:</p>
+<ol>
+<li>
+<p>Initialize Docker Swarm:</p>
+<p>If you haven't already initialized Docker Swarm on your Docker host, you can do so by running the following command in your terminal:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$<span class="w"> </span>docker<span class="w"> </span>swarm<span class="w"> </span>init
+</span></code></pre></div>
+<p>This command initializes Docker Swarm mode on the current Docker host and creates a Swarm manager node.</p>
+</li>
+<li>
+<p>Deploy Portainer as a Service:</p>
+<p>Once Docker Swarm is initialized, you can deploy Portainer as a service within the Swarm. Run the following command to create a Portainer service:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>service<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>--name<span class="w"> </span>portainer<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>--publish<span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>--constraint<span class="w"> </span><span class="s1">'node.role == manager'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span>/var/run/docker.sock,dst<span class="o">=</span>/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>portainer/portainer-ce
+</span></code></pre></div>
+<p>This command creates a new service named "portainer" using the Portainer Community Edition (CE) image. It publishes Portainer's web interface on port 9000 and mounts the Docker socket from the host into the Portainer container, allowing Portainer to interact with the Docker API.</p>
+</li>
+<li>
+<p>Access Portainer Web Interface:</p>
+<p>Once the Portainer service is deployed, you can access the Portainer web interface by navigating to http://<your-docker-host>:9000 in your web browser. If you're running Portainer locally, you can use http://localhost:9000.</your-docker-host></p>
+</li>
+<li>
+<p>Set Up Portainer:</p>
+<p>Follow the on-screen instructions to complete the initial setup of Portainer. You'll be prompted to create an admin user, choose a password, and specify whether you want to manage the local Docker environment or a remote Docker Swarm cluster.</p>
+</li>
+<li>
+<p>Connect Portainer to Docker Swarm:</p>
+<p>If you're managing a remote Docker Swarm cluster, you'll need to specify the Swarm endpoint URL and optionally provide authentication credentials. This allows Portainer to communicate with the Docker Swarm API and manage services, nodes, and other resources within the cluster.</p>
+</li>
+<li>
+<p>Start Managing Services:</p>
+<p>Once connected, you can start managing Docker Swarm services, nodes, stacks, and other resources using the Portainer web interface. You can create, scale, update, and monitor services, deploy applications using stacks, and perform various administrative tasks.</p>
+</li>
+</ol>
+<p>By following these steps, you can set up and use Docker Swarm mode with Portainer to manage your containerized applications at scale. Make sure to consult the official Portainer documentation for more detailed instructions and best practices.</p>
+<hr>
+<div class="language-nginx highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">generic.com.np</span><span class="p">;</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://&lt;container-ip&gt;:&lt;container-port&gt;</span><span class="p">;</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="jenkins">Jenkins</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked id="__tabbed_7_1" name="__tabbed_7" type="radio"><input id="__tabbed_7_2" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">Theory</label><label for="__tabbed_7_2">Practical</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Docker Pull Command</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>jenkins/jenkins
+</span></code></pre></div>
+<p>After pulling the Docker Jenkins image onto your Linux server, you can start using Jenkins by running the container and accessing its web interface. Here's how you can do it:</p>
+<ol>
+<li>
+<p>Run Jenkins Container:</p>
+<p>Use the following command to start the Jenkins container:</p>
+<div class="language-bash highlight"><span class="filename">title</span><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">50000</span>:50000<span class="w"> </span>--name<span class="w"> </span>jenkins<span class="w"> </span>jenkins/jenkins:lts
+</span></code></pre></div>
+<p>Explanation of options:</p>
+<ul>
+<li>
+<p><code>-d</code>:
+Run the container in detached mode (in the background).</p>
+</li>
+<li>
+<p><code>-p 8080:8080 -p 50000:50000</code>:
+Map port 8080 on the host to port 8080 inside the container for accessing Jenkins web interface, and map port 50000 for Jenkins agent communication.</p>
+</li>
+<li>
+<p><code>--name jenkins</code>:
+Assign the name "jenkins" to the container.</p>
+</li>
+<li>
+<p><code>jenkins/jenkins:lts</code>:
+This specifies the Jenkins Docker image to use. In this case, we're using the LTS (Long-Term Support) version.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Access Jenkins Web Interface:</p>
+<p>Once the Jenkins container is running, you can access its web interface by opening a web browser and navigating to:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>http://your_server_ip:8080
+</span></code></pre></div>
+<p>Replace <code>your_server_ip</code> with the <code>IP address</code> or <code>domain name</code> of your Linux server.</p>
+</li>
+<li>
+<p>Unlock Jenkins:</p>
+<p>When you access the Jenkins web interface for the first time, you'll be prompted to unlock Jenkins. To do this, you need to retrieve the initial admin password from the Jenkins container logs. Run the following command to view the logs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>docker<span class="w"> </span>logs<span class="w"> </span>jenkins
+</span></code></pre></div>
+<p>Look for the line containing "Please use the following password to proceed to installation:", and copy the provided password.</p>
+</li>
+<li>
+<p>Complete Jenkins Setup:</p>
+<p>Paste the copied password into the Jenkins web interface and click "Continue". Follow the on-screen instructions to complete the setup process, including installing recommended plugins.</p>
+</li>
+<li>
+<p>Create Admin User:</p>
+<p>After plugin installation, you'll be prompted to create an admin user. Provide the required information to create the admin user.</p>
+</li>
+<li>
+<p>Start Using Jenkins:</p>
+<p>Once you've completed the setup process, you can start using Jenkins to create and manage jobs, automate tasks, and perform continuous integration and continuous delivery (CI/CD) pipelines.</p>
+</li>
+</ol>
+<p>That's it! You've successfully pulled and started the Jenkins Docker container on your Linux server, and you can now begin configuring Jenkins for your development and deployment needs.</p>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<h2 id="docker-hub">Docker Hub</h2>
+<p><code>Docker Hub</code> is to <mark>Docker</mark> what <code>GitHub</code> is to <mark>source code</mark>.</p>
+<p>You can think of Docker Hub as being like GitHub.</p>
+<p>It allows anyone to host its image online and share it publicly or keep it
+private. To share an image on Docker Hub, you need to do the following:</p>
+<ul>
+<li>Create an account on Docker Hub.</li>
+<li>Log in to the hub on your Docker host.</li>
+<li>Push your image.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>$<span class="w"> </span>docker<span class="w"> </span>login
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Username:<span class="w"> </span>how2dock
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>Password:
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>Email:<span class="w"> </span>how2dock@gmail.com
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>Login<span class="w"> </span>Succeeded
+</span></code></pre></div>
+<ul>
+<li><a href="#">Docker Cookbook by Sébastien Goasguen, pg: 55</a></li>
+</ul>
+<hr>
+<h2 id="docker-networking">Docker Networking</h2>
+<p>As you build your distributed application, services that compose it will need to be able to communicate with each other. These services, running in containers, might be on a single host or on multiple hosts and even across data centers. Therefore container networking is a critical enabler of any Docker-based distributed application.</p>
+<hr>
+<h2 id="downloading-the-first-docker-image">Downloading the first Docker image</h2>
+<p>The Docker Registry is an application repository that hosts various applications, ranging from basic Linux images to advanced applications. The <code>docker pull</code> <mark>subcommand</mark> is used to download any number of images from the registry.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>hello-world
+</span></code></pre></div>
+<p>Once the images have been downloaded, they can be verified using the <code>docker images</code> <mark>subcommand</mark>, as shown here:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>images
+</span></code></pre></div>
+<hr>
+<h2 id="running-the-first-docker-container">Running the first Docker container</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</span></code></pre></div>
+<p>Cool, isn't it? You have set up your first Docker container in no time. In the preceding example, the <code>docker run</code> <mark>subcommand</mark> has been used to create a container from the hello-world image.</p>
+<hr>
+<h2 id="troubleshooting-docker-containers-or-sudo-service">Troubleshooting Docker containers <code>or</code> sudo service</h2>
+<p>You can <code>stop</code>, <code>start</code>, and <code>restart</code> the service. For example, to restart it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>docker<span class="w"> </span>status
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>docker<span class="w"> </span>restart
+</span></code></pre></div>
+<hr>
+<h2 id="certbot-in-linux"><mark>certbot</mark> in linux</h2>
+<details class="abstract" open="open">
+<summary>Abstract</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked id="__tabbed_8_1" name="__tabbed_8" type="radio"><input id="__tabbed_8_2" name="__tabbed_8" type="radio"><div class="tabbed-labels"><label for="__tabbed_8_1">Installation</label><label for="__tabbed_8_2">SSL Certificate with Certbot</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># There is two ways you can download certbot</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="c1"># 1. with PIP</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="c1"># 2. with snapd</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1"># step1: Install snapd:</span>
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>snapd
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a><span class="c1"># step2: Ensure you have the latest snapd version installed:</span>
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>core<span class="p">;</span><span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span>refresh<span class="w"> </span>coreCopied!
+</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>
+</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="c1"># step3: Install Certbot with snapd:</span>
+</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>--classic<span class="w"> </span>certbot
+</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>
+</span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="c1"># step4: Create a symlink to ensure Certbot runs:</span>
+</span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/snap/bin/certbot<span class="w"> </span>/usr/bin/certbot
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Create an SSL Certificate with Certbot</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># step1: Choose the best option for your needs.</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="c1"># Create SSL certs for all domains and configure redirects in the web server:</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>--apache
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="c1"># Create SSL certs for a specified domain (recommended if you’re using your system hostname):</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>--apache<span class="w"> </span>-d<span class="w"> </span>example.com<span class="w"> </span>-d<span class="w"> </span>www.example.com
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="c1"># Only install SSL certs:</span>
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>certonly<span class="w"> </span>--apache
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>certonly<span class="w"> </span>--nginx
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>
+</span><span id="__span-38-13"><a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>
+</span><span id="__span-38-14"><a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="c1"># step2: Enter an email address for renewal and security notices.</span>
+</span><span id="__span-38-15"><a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="c1"># step3: Agree to the terms of service.</span>
+</span><span id="__span-38-16"><a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="c1"># step4: Specify whether to receive emails from EFF.</span>
+</span><span id="__span-38-17"><a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="c1"># step5: If prompted, choose whether to redirect HTTP traffic to HTTPS – 1 (no redirect, no further changes to the server) or # 2 (redirect all HTTP requests to HTTPS).</span>
+</span></code></pre></div>
+<ul>
+<li><a href="https://www.inmotionhosting.com/support/website/ssl/lets-encrypt-ssl-ubuntu-with-certbot/">How to Install Let’s Encrypt SSL on Ubuntu with Certbot</a></li>
+<li><a href="https://linuxhostsupport.com/blog/install-lets-encrypt-ssl-certificates-using-certbot/">Install Let’s Encrypt SSL Certificates using Certbot</a></li>
+</ul>
+<p>Solved</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/53223914/issue-using-certbot-with-nginx">Issue using certbot with nginx: stackoverflow</a></li>
+<li><a href="https://www.youtube.com/watch?v=kyRlG6a0u3M">Whaaaat Are AAAA Records in DNS? youtube</a></li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<details class="danger">
+<summary>Docker Common Issue Solved</summary>
+<h2 id="docker-common-issue-solved">Docker Common Issue Solved</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:4"><input checked id="__tabbed_9_1" name="__tabbed_9" type="radio"><input id="__tabbed_9_2" name="__tabbed_9" type="radio"><input id="__tabbed_9_3" name="__tabbed_9" type="radio"><input id="__tabbed_9_4" name="__tabbed_9" type="radio"><div class="tabbed-labels"><label for="__tabbed_9_1">Share Docker sock</label><label for="__tabbed_9_2">Docker Port Mapping</label><label for="__tabbed_9_3">step1:</label><label for="__tabbed_9_4">Final Solution</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Connect: To share Docker daemon from the host with jenkins nodes</p>
+<p>To run Docker commands inside Jenkins, especially within a Jenkins instance running inside a Docker container, you have a couple of options:</p>
+<ol>
+<li>
+<p>Docker Socket Binding:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span>&lt;jenkins-image:tag&gt;
+</span></code></pre></div>
+</li>
+<li>
+<p>Docker-in-Docker (DinD):</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--privileged<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span>docker:dind
+</span></code></pre></div>
+</li>
+</ol>
+<hr>
+<p><strong>How to fix docker: Got permission denied while trying to connect to the Docker daemon socket</strong></p>
+<p>After an search hour this following solution finaly worked :</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/var/run/docker.sock
+</span></code></pre></div>
+<ul>
+<li><a href="https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket">Got permission denied while trying to connect to the Docker daemon socket</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><a class="glightbox" href="https://tecadmin.net/tutorial/wp-content/uploads/2017/09/Docker-port-binding.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Docker Port Binding" src="https://tecadmin.net/tutorial/wp-content/uploads/2017/09/Docker-port-binding.png"></a></p>
+<blockquote>
+<p>what is differnce between 8080:80 and 8080:8080. is there any real difference</p>
+</blockquote>
+<ul>
+<li><strong>8080:80</strong></li>
+</ul>
+<p>This notation maps port 80 of the container to port 8080 of the host. It means that any traffic directed at port 8080 on the host machine will be forwarded to port 80 inside the Docker container. This is useful when you want to expose a service running inside the container on a standard HTTP port (80) of the host machine.</p>
+<ul>
+<li><strong>8080:8080</strong></li>
+</ul>
+<p>This notation maps port 8080 of the container to port 8080 of the host. It means that any traffic directed at port 8080 on the host machine will be forwarded to port 8080 inside the Docker container. This is useful when you want to expose a service running inside the container on a non-standard port (8080) of the host machine.</p>
+<p>In both cases, the first port number (8080) specifies the port on the host machine, and the second port number (80 or 8080) specifies the port inside the Docker container. The port on the host machine is what you use to access the service running inside the container.</p>
+<p>So, the difference lies in which port on the host machine you want to use to access the service and which port inside the container the service is listening on.</p>
+<blockquote>
+<p>so why the jenkins not running on 8080:80 but running on 8080:8080</p>
+</blockquote>
+<p>If Jenkins is running inside a Docker container and you've mapped port 8080:8080 but not <code>8080:80</code>, it means that Jenkins is configured to listen for incoming connections on port 8080 inside the container.</p>
+<p>When you map <code>8080:8080</code>, it indicates that traffic directed to port <code>8080</code> on the host machine should be forwarded to port <code>8080</code> inside the Docker container where Jenkins is running. This setup expects Jenkins to be listening for connections on port <code>8080</code> inside the container.</p>
+<p>If Jenkins is running on port <code>8080</code> inside the container, mapping <code>8080:8080</code> correctly exposes Jenkins to external traffic on port <code>8080</code> of the host machine.</p>
+<p>On the other hand, if you were to map <code>8080:80</code>, it would expect Jenkins to be configured to listen on port <code>80</code> inside the container. By default, Jenkins typically runs on port 8080, so mapping <code>8080:80</code> wouldn't work unless you specifically configured Jenkins to listen on port 80 inside the container.</p>
+<p>Therefore, mapping <code>8080:8080</code> correctly exposes Jenkins running on port <code>8080</code> inside the container to external traffic on port <code>8080</code> of the host machine, which is why it works in your case.</p>
+</div>
+<div class="tabbed-block">
+<p>Issue Solved</p>
+<p>Step-by-step instructions to create a Docker image for Jenkins with Docker installed inside it and then run a Jenkins container with the Docker socket mounted from the host:</p>
+<ol>
+<li>
+<p><strong>Create a Dockerfile:</strong></p>
+<p>Create a file named <code>Dockerfile</code> with the following content:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>FROM jenkins/jenkins:lts
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>USER root
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a># Install Docker prerequisites
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>RUN apt-get update &amp;&amp; \
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>    apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common &amp;&amp; \
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a># Install Docker
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>RUN curl -fsSL https://get.docker.com -o get-docker.sh &amp;&amp; \
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a>    sh get-docker.sh
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a># Add Jenkins user to Docker group
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a>RUN usermod -aG docker jenkins
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a>
+</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>USER jenkins
+</span></code></pre></div>
+<p>This Dockerfile installs Docker inside the Jenkins container and adds the Jenkins user to the Docker group.</p>
+</li>
+<li>
+<p><strong>Build the Docker Image:</strong></p>
+<p>Open a terminal and navigate to the directory containing the <code>Dockerfile</code>. Then, run the following command to build the Docker image:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-jenkins<span class="w"> </span>.
+</span></code></pre></div>
+<p>This command builds the Docker image using the Dockerfile and tags it with the name <code>my-jenkins</code>.</p>
+</li>
+<li>
+<p><strong>Run the Jenkins Container:</strong></p>
+<p>After the Docker image is built, you can run a Jenkins container with the Docker socket mounted from the host:</p>
+<div class="language-bash highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>--name<span class="w"> </span>jenkins<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">50000</span>:50000<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>my-jenkins
+</span></code></pre></div>
+<p>This command starts a Jenkins container named <code>jenkins</code>. It mounts the Docker socket (<code>/var/run/docker.sock</code>) from the host into the container and exposes the Jenkins web interface on port <code>8080</code> and the Jenkins agent communication port on port <code>50000</code>.</p>
+</li>
+</ol>
+<p>With these steps, you have a Jenkins container running with Docker installed inside it, and the Docker socket mounted from the host. This setup allows the Jenkins container to communicate with the Docker daemon on the host and perform Docker-related tasks within Jenkins pipelines or jobs.</p>
+</div>
+<div class="tabbed-block">
+<p>Docker Socket bind with docker command</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span>-v<span class="w"> </span>/usr/bin/docker:/usr/bin/docker<span class="w"> </span>-v<span class="w"> </span>/var/custom_volume/jenkins/:/var/jenkins_home/<span class="w"> </span>--privileged<span class="w"> </span>--name<span class="w"> </span>b_jenkins<span class="w"> </span>6b7d79a0229e
+</span></code></pre></div>
+<ul>
+<li><a href="https://stackoverflow.com/questions/64120020/exec-com-docker-cli-executable-file-not-found-in-path">Docker cli excutable file not found</a></li>
+<li><a href="https://forums.docker.com/t/docker-not-found-in-jenkins-pipeline/31683/24">docker not found in jenkins pipeline</a></li>
+<li><a href="https://forums.docker.com/t/docker-not-found-in-jenkins-pipeline/31683/25">docker not found in jenkins pipeline 2</a></li>
+<li><a href="https://www.ibm.com/topics/docker">docker: ibm</a></li>
+<li><a href="https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/">what is docker and why it is darn popular?</a></li>
+<li><a href="https://aws.amazon.com/docker/">docker introduction aws</a></li>
+</ul>
+</div>
+</div>
+</div>
+</details>
+<hr>
+<details class="note">
+<summary>Presentation</summary>
+<h2 id="docker-presentation">Docker Presentation</h2>
+<h3 id="docker-architecture">Docker Architecture</h3>
+<p><a class="glightbox" href="https://miro.medium.com/v2/resize:fit:720/format:webp/1*RY-0WiwlcOKbUfZt_WdJbA.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://ragin.medium.com/docker-what-it-is-how-images-are-structured-docker-vs-vm-and-some-tips-part-1-d9686303590f" src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*RY-0WiwlcOKbUfZt_WdJbA.png"></a></p>
+<p><a class="glightbox" href="https://miro.medium.com/v2/resize:fit:640/format:webp/1*A7zXIGxMDsmA6vQ7W5b8ig.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://ragin.medium.com/docker-what-it-is-how-images-are-structured-docker-vs-vm-and-some-tips-part-1-d9686303590f" src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*A7zXIGxMDsmA6vQ7W5b8ig.png"></a></p>
+<p><a href="https://www.codementor.io/blog/docker-technology-5x1kilcbow"><strong>cgroups &amp; namespaces</strong></a>
+The backbone of the Docker technology are cgroups (short for control groups) and kernel namespaces.</p>
+<p>With <strong><code>cgroups</code></strong>, the Linux operating system can easily manage and monitor resource allocation for a given process and set resource limits, like CPU, memory, and network limits.</p>
+<p><strong><code>Namespaces</code></strong> are helpful in isolating process groups from each other. There are six default namespaces in Linux: <code>mnt</code>, <code>IPC</code>, <code>net</code>, <code>usr</code>, <code>pid</code>, and <code>uts</code>. Each container will have its own namespace and processes running inside that namespace, and will not have access to anything outside its namespace.</p>
+<p><a class="glightbox" href="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*oQBStcYmbbtP5n58I1Lb_A.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://medium.com/@mrdevsecops/namespace-vs-cgroup-60c832c6b8c8" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*oQBStcYmbbtP5n58I1Lb_A.png"></a></p>
+<h3 id="docker-steps">Docker Steps</h3>
+<p><a class="glightbox" href="https://jfrog.file.force.com/servlet/servlet.ImageServer?id=01569000008kqFT&amp;oid=00D20000000M3v0&amp;lastMod=1631619825000" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/" src="https://jfrog.file.force.com/servlet/servlet.ImageServer?id=01569000008kqFT&amp;oid=00D20000000M3v0&amp;lastMod=1631619825000"></a></p>
+<h3 id="docker-images_1">Docker Images</h3>
+<p><a href="https://betterstack.com/community/questions/where-are-docker-images-stored-on-host-machine/">Where Are Docker Images Stored on the Host Machine? </a></p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>$<span class="w"> </span>docker<span class="w"> </span>info
+</span></code></pre></div>
+<p><a href="https://www.simplilearn.com/tutorials/docker-tutorial/docker-images">Now, typically there are <strong>two categories of Docker Images</strong></a></p>
+<ul>
+<li>Official Base Images</li>
+</ul>
+<p>that are pre-built and can be downloaded or pulled from registries, and</p>
+<ul>
+<li>Customized Images</li>
+</ul>
+<p>that use base images to create application-specific environments.</p>
+<p><a class="glightbox" href="https://docs.docker.com/build/guide/images/layers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://docs.docker.com/build/guide/layers/" src="https://docs.docker.com/build/guide/images/layers.png"></a></p>
+<p><a class="glightbox" href="https://blog.florianlopes.io/content/images/2016/04/Docker-layers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://blog.florianlopes.io/5-tips-to-reduce-docker-image-size/" src="https://blog.florianlopes.io/content/images/2016/04/Docker-layers.png"></a></p>
+<h3 id="docker-container_1">Docker Container</h3>
+<p><a class="glightbox" href="https://jfrog.file.force.com/servlet/servlet.ImageServer?id=01569000008kqFO&amp;oid=00D20000000M3v0&amp;lastMod=1631619804000" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/" src="https://jfrog.file.force.com/servlet/servlet.ImageServer?id=01569000008kqFO&amp;oid=00D20000000M3v0&amp;lastMod=1631619804000"></a></p>
+<p>The major <strong>difference</strong> between a <code>container</code> and an <code>image</code> is the <mark>top writable layer</mark>.</p>
+<p><a class="glightbox" href="https://test-dockerrr.readthedocs.io/en/latest/userguide/storagedriver/images/container-layers.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://test-dockerrr.readthedocs.io/en/latest/userguide/storagedriver/imagesandcontainers/" src="https://test-dockerrr.readthedocs.io/en/latest/userguide/storagedriver/images/container-layers.jpg"></a></p>
+<p>All changes made to the running container, such as writing new files, modifying existing files, and deleting files, are written to this thin writable container layer.</p>
+<p>When the container is stopped writable layer remains, and if container was removed writable layer is deleted. So that’s why people say, containers are stateless.</p>
+<p><a class="glightbox" href="../../assets/docker/How-to-Handle-Container-Storage-01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://taikun.cloud/how-to-handle-container-storage/" src="../../assets/docker/How-to-Handle-Container-Storage-01.png"></a></p>
+<h3 id="docker-volume_1">Docker Volume</h3>
+<p>How to Handle Container Storage</p>
+<p>To make data of any container persistent and accessible outside of the container, Docker provides two options:</p>
+<ul>
+<li><strong>Volumes</strong></li>
+<li><strong>Bind mounts</strong></li>
+</ul>
+<p><a class="glightbox" href="../../assets/docker/How-to-Handle-Container-Storage-06.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://taikun.cloud/how-to-handle-container-storage/" src="../../assets/docker/How-to-Handle-Container-Storage-06.png"></a></p>
+<h3 id="docker-port-mapping">Docker Port Mapping</h3>
+<p><a class="glightbox" href="../../assets/docker/por-mapping-in-docker-1681604245712.jpeg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://www.linkedin.com/pulse/port-mapping-docker-manfred-lange" src="../../assets/docker/por-mapping-in-docker-1681604245712.jpeg"></a></p>
+<p><a class="glightbox" href="../../assets/docker/docker-port-mapping-1%200iiE2Tsw_t9lqrk1nQ--Ww.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://yuminlee2.medium.com/docker-port-mapping-12dd1d94fa54" src="../../assets/docker/docker-port-mapping-1%200iiE2Tsw_t9lqrk1nQ--Ww.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/expose-vs-publish-1%20dvat6c94njCkLHM6kcrnBA.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://yuminlee2.medium.com/docker-port-mapping-12dd1d94fa54" src="../../assets/docker/expose-vs-publish-1%20dvat6c94njCkLHM6kcrnBA.png"></a></p>
+<h3 id="docker-vs-docker-compose-vs-docker-swarm">Docker vs Docker Compose vs Docker Swarm</h3>
+<p><a class="glightbox" href="../../assets/docker/1%20ngF2TC5F8lGiWkvGKgnLcA.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://atharvyeole.medium.com/best-analogy-to-understand-docker-docker-compose-docker-swarm-and-kubernetes-69cd980a6e6a" src="../../assets/docker/1%20ngF2TC5F8lGiWkvGKgnLcA.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/container-orchestration-tool.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Container Orchestration Tools" src="../../assets/docker/container-orchestration-tool.jpg"></a></p>
+<h3 id="docker-swarm">Docker Swarm</h3>
+<p><a class="glightbox" href="https://k21academy.com/wp-content/uploads/2021/08/Docker-Swarm-Orchestration.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://k21academy.com/docker-kubernetes/docker-swarm/" src="https://k21academy.com/wp-content/uploads/2021/08/Docker-Swarm-Orchestration.png"></a></p>
+<hr>
+<h3 id="practical-guide-jenkins">Practical Guide Jenkins</h3>
+<p><a class="glightbox" href="https://devops4solutions.com/wp-content/uploads/2020/09/Dockerpublish.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="https://devops4solutions.com/publish-docker-image-to-dockerhub-using-jenkins-pipeline/" src="https://devops4solutions.com/wp-content/uploads/2020/09/Dockerpublish.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/jenkins-docker-hub.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Jenkins docker hub" src="../../assets/docker/jenkins-docker-hub.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-image-download.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Jenkins download image" src="../../assets/docker/jenkins-image-download.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/running-jenkins-images-container.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Jenkins image and container runnit" src="../../assets/docker/running-jenkins-images-container.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-login.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins login" src="../../assets/docker/jenkins-login.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-password.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins password" src="../../assets/docker/jenkins-password.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins_home.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins home" src="../../assets/docker/jenkins_home.png"></a></p>
+<p>Using Statefull persistant volume
+<a class="glightbox" href="../../assets/docker/jenkins-volume.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins volume" src="../../assets/docker/jenkins-volume.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/portinaer-command.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins command" src="../../assets/docker/portinaer-command.png"></a>
+<a class="glightbox" href="../../assets/docker/portinaer-command.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jenkins command" src="../../assets/docker/portinaer-command.png"></a></p>
+<p>Jenkins Tutorial
+<a class="glightbox" href="../../assets/docker/jenkins-home-page.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-page.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-create-job.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-create-job.png"></a></p>
+<p><a class="glightbox" href="../../assets/docker/jenkins-home-2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-2.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-3.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-4.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-5.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-6.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-7.png"></a>
+<a class="glightbox" href="../../assets/docker/jenkins-home-8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="jekins home tutorial" src="../../assets/docker/jenkins-home-8.png"></a></p>
+</details>
+<hr>
+<div class="admonition question">
+<p class="admonition-title">Docker</p>
+</div>
+<details class="note">
+<summary>Docker: <code>Host</code> port <mark>vs</mark> <code>Container</code> port</summary>
+<p>What is left side of port ant right side of port in docker</p>
+<p>In Docker, when you expose ports for containers, you specify the port mappings using the <code>-p</code> flag or <code>--publish</code> flag when running a container. The syntax is typically <strong><code>hostPort</code><mark>:</mark><code>containerPort</code></strong>.</p>
+<ul>
+<li>
+<p><strong>Left side</strong> (<code>hostPort</code>):</p>
+<p>This is the port on the host machine, the system where Docker is running. It is the port to which you can connect from outside the Docker container to access the services running within the container. If you specify a port on the left side, Docker will bind that port on the host system to the container port specified on the right side.</p>
+</li>
+<li>
+<p><strong>Right side</strong> (<code>containerPort</code>):</p>
+<p>This is the port exposed within the Docker container. It is the port on which your application or service within the container is listening. When Docker starts the container, it will forward any traffic received on the host port (left side) to this port within the container.</p>
+</li>
+</ul>
+<p>For example, if you run a container with <code>-p 8080:80</code>, it means that port <code>80</code> inside the container will be accessible from port <code>8080</code> on the host machine. If you were to access <code>http://localhost:8080</code> on your host machine, Docker would forward that request to port <code>80</code> inside the container.</p>
+<p>This port mapping mechanism allows Docker containers to communicate with the outside world and for multiple containers to run on the same host without port conflicts.</p>
+</details>
+<details class="note">
+<summary>Listen services running on specific port <code>:8000</code> <code>:9000</code></summary>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># You can use the following commands to find out which processes are using these ports:</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>sudo<span class="w"> </span>lsof<span class="w"> </span>-i<span class="w"> </span>:9000
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>sudo<span class="w"> </span>lsof<span class="w"> </span>-i<span class="w"> </span>:8080
+</span></code></pre></div>
+<p>Once you identify the processes using these ports, you can decide whether to stop them or reconfigure them to use different ports. After ensuring that the ports are available, you can attempt to start the Nginx service again.</p>
+</details>
+<details class="note">
+<summary>Last things you need to remeber in Docker Dind</summary>
+<blockquote>
+<p>Host os:</p>
+</blockquote>
+<ol>
+<li>
+<p>Add <code>Jenkins</code> user to the <mark>Docker group</mark>:</p>
+<p><mark>On the host machine where Docker is installed</mark>, run the following command:</p>
+<div class="language-sh highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span>jenkins
+</span></code></pre></div>
+<p>This command adds the Jenkins user to the docker group, granting it permission to interact with the Docker daemon.</p>
+</li>
+<li>
+<p><mark>Ensure permissions</mark> on the Docker socket:</p>
+<p>The Docker daemon socket (<code>/var/run/docker.sock</code>) should be <mark>readable</mark> and <mark>writable</mark> by <mark>members of the docker group</mark>. You can check and     adjust the permissions if needed with the following command:</p>
+<div class="language-sh highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/var/run/docker.sock
+</span></code></pre></div>
+</li>
+<li>
+<p><mark>Restart Jenkins</mark>:</p>
+<p>Restart the Jenkins service to apply the changes:</p>
+<div class="language-sh highlight"><span class="filename">bash</span><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>jenkins
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="c1"># or</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>docker<span class="w"> </span>restart<span class="w"> </span>&lt;container_id<span class="w"> </span>or<span class="w"> </span>container_name&gt;
+</span></code></pre></div>
+</li>
+</ol>
+<p>With these changes, the Jenkins user should now have the necessary permissions to execute Docker commands, and <code>you should no longer encounter permission denied errors when running Docker commands from Jenkins job scripts</code>. Make sure to test your Jenkins job again after applying these changes.</p>
+</details>
+<hr>
+<h2 id="reference">Reference</h2>
+<blockquote>
+<p>Linux (<code>Ubuntu</code>)</p>
+</blockquote>
+<ul>
+<li><a href="https://docs.docker.com/desktop/install/ubuntu/">Install Docker Desktop on Ubuntu</a></li>
+<li><a href="https://cloudcone.com/docs/article/how-to-install-docker-on-ubuntu-22-04-20-04/">how-to-install-docker-on-ubuntu-22-04-20-04 :UPDATED</a></li>
+<li><a href="https://manpages.ubuntu.com/manpages/jammy/man1/pass.1.html">pass tutorial</a></li>
+<li><a href="https://kodekloud.com/blog/run-docker-in-docker-container/#why-run-docker-in-docker">3 Best Ways to Run Docker in Docker Container</a></li>
+</ul>
+<blockquote>
+<p>Blog</p>
+</blockquote>
+<ul>
+<li><a href="https://www.sumologic.com/glossary/docker-swarm/">What is a Docker Swarm?</a></li>
+<li><a href="https://www.chakray.com/key-differences-between-docker-and-docker-swarm-in-container-management-and-orchestration/">Key Differences Between Docker and Docker Swarm </a></li>
+</ul>
+<blockquote>
+<p>Youtube</p>
+</blockquote>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=Tm0Q5zr3FL4&amp;ab_channel=Simplilearn">Docker Swarm: Simplilearn</a></li>
+<li><a href="https://www.youtube.com/watch?v=74p7csxKN8M&amp;ab_channel=Intellipaat">Docker Swarm Step by Step: Intellipaat</a></li>
+<li><a href="https://www.youtube.com/watch?v=9_s3h_GVzZc&amp;ab_channel=TechWorldwithNana">Docker vs Kubernetes vs Docker Swarm: Techworld with Nana</a></li>
+<li><a href="https://www.youtube.com/watch?v=6IYKdiRpTi4&amp;ab_channel=SelfHosted">The EASIEST Docker Swarm Tutorial</a></li>
+<li><a href="https://www.youtube.com/watch?v=HG6yIjZapSA&amp;ab_channel=ProgrammingwithMosh">Docker Compose Tutorial: Programming with Mosh</a></li>
+<li><a href="https://www.youtube.com/watch?v=oXb5MMxUPHE&amp;ab_channel=AkashKumar">Become a Docker Swarm Expert in just 20 minutes</a></li>
+</ul>
+<blockquote>
+<p>tmux</p>
+</blockquote>
+<ul>
+<li><a href="https://superuser.com/questions/1560523/how-do-i-resize-tmux-pane-by-holding-down-prefix-and-arrow-key-for-a-while">tmux resizing pane</a></li>
+</ul>
+<blockquote>
+<p>Misc <code>youtube</code></p>
+</blockquote>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=lkg5QJsoCCQ&amp;ab_channel=anthonywritescode">what is podman vs docker</a></li>
+</ul>
+<blockquote>
+<p>Book</p>
+</blockquote>
+<ul>
+<li><a href="#">Docker Cookbook by Sébastien Goasguen, pg: 55</a></li>
+</ul></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Intro">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Intro
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../docker-compose/" class="md-footer__link md-footer__link--next" aria-label="Next: Docker Compose">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Docker Compose
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.tabs.sticky", "header.autohide", "navigation.footer", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
